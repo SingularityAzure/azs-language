@@ -3,18 +3,153 @@
 	"name": "AzScript",
 	"patterns": [
 		{
+			"include": "#comments"
+		},
+		{
 			"include": "#keywords"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#blocks"
+		},
+		{
+			"include": "#punctuation"
+		},
+		{
+			"include": "#operators"
 		},
 		{
 			"include": "#strings"
 		}
 	],
 	"repository": {
-		"keywords": {
+		"comments": {
 			"patterns": [{
-				"name": "keyword.control.azs",
-				"match": "\\b(if|while|for|return)\\b"
+				"name": "comment.line.percentage.azs",
+				"match": "#(?:(\\s*TODO(\\(.*\\))?:)|(\\s*NOTE(\\(.*\\))?:))?.*",
+				"captures": {
+					"1": {
+						"name": "comment.line.percentage.todo.azs"
+					},
+					"2": {
+						"name": "comment.line.percentage.todo.name.azs"
+					},
+					"3": {
+						"name": "comment.line.percentage.note.azs"
+					},
+					"4": {
+						"name": "comment.line.percentage.note.name.azs"
+					}
+				}
 			}]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "constant.language.azs",
+					"match": "\\b(scope|name|area|target[XY]|targetMaxDist|moveAccel|moveFrictionBase|faces|true|false|main)\\b"
+				},
+				{
+					"name": "keyword.other.azs",
+					"match": "\\b(enum|import|dialogue|exit|alias|choose)\\b"
+				},
+				{
+					"name": "storage.type",
+					"match": "\\b(map|script|int|real|bool|string)\\b"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"match": "\\b0b[01]*(\\.[01]*(\\[[01]+\\])?)?",
+					"name": "constant.numeric.azs"
+				},
+				{
+					"match": "\\b0o[0-7]*(\\.[0-7]*(\\[[0-7]+\\])?)?",
+					"name": "constant.numeric.azs"
+				},
+				{
+					"match": "\\b0x[\\da-fA-F]*(\\.[\\da-fA-F]*(\\[[\\da-fA-F]+\\])?)?",
+					"name": "constant.numeric.azs"
+				},
+				{
+					"match": "\\b\\d+((\\.\\d*((\\[\\d+\\])|\\b))|\\b)",
+					"name": "constant.numeric.azs"
+				}
+			]
+		},
+		"blocks": {
+			"patterns": [
+				{
+					"begin": "{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.section.block.begin.bracket.curly.azs"
+						}
+					},
+					"end": "}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.section.block.end.bracket.curly.azs"
+						}
+					},
+					"name": "meta.block.azs",
+					"patterns": [{
+						"include": "azs"
+					}]
+				}
+			]
+		},
+		"punctuation": {
+			"patterns": [
+				{
+					"match": "\\(",
+					"name": "punctuation.section.parens.begin.bracket.round.azs"
+				},
+				{
+					"match": "\\)",
+					"name": "punctuation.section.parens.end.bracket.round.azs"
+				},
+				{
+					"match": "\\[",
+					"name": "punctuation.section.parens.begin.bracket.square.azs"
+				},
+				{
+					"match": "\\]",
+					"name": "punctuation.section.parens.end.bracket.square.azs"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"match": "\\+=|-=",
+					"name": "keyword.operator.assignment.compound.azs"
+				},
+				{
+					"match": "!=|==|<=|>=|<|>",
+					"name": "keyword.operator.comparison.azs"
+				},
+				{
+					"match": "=|:|:=",
+					"name": "keyword.operator.assignment.azs"
+				},
+				{
+					"match": "\\+|-",
+					"name": "keyword.operator.arithmetic.azs"
+				},
+				{
+					"match": ",",
+					"name": "keyword.operator.delimiter.azs"
+				},
+				{
+					"match": "\\.",
+					"name": "keyword.operator.context-access.azs"
+				}
+			]
 		},
 		"strings": {
 			"name": "string.quoted.double.azs",
@@ -23,7 +158,32 @@
 			"patterns": [
 				{
 					"name": "constant.character.escape.azs",
-					"match": "\\\\."
+					"match": "\\\\[nt\"\\\\]"
+				}
+			]
+		},
+		"azs": {
+			"patterns": [
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#blocks"
+				},
+				{
+					"include": "#keywords"
+				},
+				{
+					"include": "#numbers"
+				},
+				{
+					"include": "#punctuation"
+				},
+				{
+					"include": "#operators"
 				}
 			]
 		}
