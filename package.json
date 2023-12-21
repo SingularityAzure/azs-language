@@ -1,0 +1,25 @@
+{
+  "name": "azs-language",
+  "displayName": "azs-language",
+  "description": "Syntax highlighting for AzScript",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "azs",
+      "aliases": ["AzScript", "azs"],
+      "extensions": [".azs"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "azs",
+      "scopeName": "source.azs",
+      "path": "./syntaxes/azs.tmLanguage.json"
+    }]
+  }
+}
